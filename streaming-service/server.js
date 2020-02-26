@@ -57,6 +57,7 @@ function trackTicker(socket, ticker) {
   }, FETCH_INTERVAL);
 
   socket.on('disconnect', function() {
+    console.log('cleatInterval')
     clearInterval(timer);
   });
 }

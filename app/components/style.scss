@@ -1,0 +1,88 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #313131;
+  color: white;
+}
+
+.conteinerForm {
+  position: relative;
+  width: 300px;
+  display: inline-block;
+  margin: 10px;
+
+  .form {
+    background: rgb(196, 105, 1);
+    width: 300px;
+    padding: 5px;
+    display: inline-block;
+
+    #price1{
+        color: chartreuse;
+    }
+    #price2{
+        color: crimson;
+    }
+
+    button {
+      position: absolute;
+      right: 0;
+      outline: none;
+
+      background-color: rgb(221, 255, 247);
+      border: 4px solid rgb(0, 162, 255);
+      border-radius: 50%;
+      height: 35px;
+      width: 35px;
+    }
+    button:after {
+      content: "☰";
+      color: rgb(0, 162, 255);
+      font-size: 15px;
+    }
+
+    button:hover {
+      border: 2px solid rgb(0, 162, 255);
+    }
+    button:hover:after {
+    //   color: rgb(0, 162, 255);
+      font-size: 18px;
+    }
+  }
+  .blockTime {
+    position: absolute;
+    background: rgb(0, 162, 255);
+    width: 300px;
+    padding: 5px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    button {
+      position: absolute;
+      right: 0;
+      outline: none;
+
+      right: 10px;
+
+      background-color: rgb(221, 255, 247);
+      border: 4px solid rgb(196, 105, 1);
+      border-radius: 50%;
+      height: 35px;
+      width: 35px;
+    }
+    button:after {
+      content: "✖";
+      color: rgb(255, 251, 0);
+      font-size: 15px;
+    }
+
+    button:hover {
+      border: 2px solid rgb(196, 105, 1);
+    }
+    button:hover:after {
+      color: rgb(255, 0, 0);
+      font-size: 18px;
+    }
+  }
+}
