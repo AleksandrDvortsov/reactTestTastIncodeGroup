@@ -1,9 +1,13 @@
-const stockTicker = (state = {ticker: null}, action) => {
+const initialState = {
+   ticker: {},
+}
+
+const stockTicker = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_TICKER':
             return {
                 ...state,
-                ticker: action.par
+                ticker: action.ticker
             };
 
         default:

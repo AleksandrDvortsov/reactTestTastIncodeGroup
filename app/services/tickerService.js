@@ -10,8 +10,7 @@ export const connectService = (stockSymbol, setParam) => {
 
         socket.on(stockSymbol, (data) => {
             console.log(data);
-            setParam(data);
-            socket.disconnect();
+            setParam(JSON.parse(data));
         });
 
         socket.emit('ticker', stockSymbol);
