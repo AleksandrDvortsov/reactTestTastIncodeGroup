@@ -1,10 +1,11 @@
 import './style.scss';
 import { connectService } from '../services';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 
 // The below line is here as an example of getting prices
 // connect('AAPL');
+const name = 'AAPL';
 
 function App(props) {
     const {
@@ -12,13 +13,14 @@ function App(props) {
         ticker
     } = props;
 
-    const [time, setTime] = useState(false);
+    const [vivbleForm, setvivbleForm] = useState(false);
     const [color, setColor] = useState('');
     const [price, setPrice] = useState(0);
+    const inputEl = useRef(null);
 
     useEffect(() => {
-        connectService('AAPL', setTicker, time);
-    }, [time])
+        connectService(name, setTicker, vivbleForm, null);
+    }, [vivbleForm])
 
     useEffect(() => {
         if (ticker.price !== undefined) {
@@ -26,39 +28,40 @@ function App(props) {
                 setPrice(ticker.price)
                 return;
             }
-
-            if(price > ticker.price)setColor('red')
+            if (price > ticker.price) setColor('red')
             else setColor('green');
             setPrice(ticker.price);
-
         }
-        console.log(price, ticker.price, 228);
-
     }, [ticker])
 
-    function setTimeServer() {
-        setTime(true);
-        // появление меню
-        // изминение времени тут
+    function formOpen() {
+        setvivbleForm(true);
     }
 
     function formClose() {
-        setTime(false);
-        // закрытие меню  
+        setvivbleForm(false);
+    }
+
+    function setTimeServer() {
+        if(inputEl.current.valueAsNumber < inputEl.current.min || inputEl.current.valueAsNumber > inputEl.current.max || isNaN(inputEl.current.valueAsNumber)){
+            alert(`value should be within ${inputEl.current.min} - ${inputEl.current.max}`)
+        }else {
+            connectService(name, setTicker, vivbleForm, inputEl.current.valueAsNumber);
+        }
+        
     }
 
     function Form() {
         return (
             <div className='form'>
                 <div>
-                    <button onClick={setTimeServer}></button>
+                    <button onClick={formOpen}></button>
                 </div>
                 <p id='ticker'>Ticker: {ticker.ticker}</p>
                 <p id='exchange'>Exchange: {ticker.exchange}</p>
-                {color === 'red' ? <p id='price1'>Price: {ticker.price}$</p> : <p id='price2'>Price: {ticker.price}$</p>}
-                {/* <p id='price'>Price: {ticker.price}$</p> */}
+                {color === 'red' ? <p id='price1'>Price: {ticker.price}$ ↓</p> : <p id='price2'>Price: {ticker.price}$ ↑</p>}
                 <p id='change'>Change: {ticker.change}</p>
-                <p id='change_percent'>Change percent: {ticker.change_percent}</p>
+                <p id='change_percent'>Change percent: {ticker.change_percent}%</p>
                 <p id='last_trade_time'>Last trade time: {new Date(Date.parse(ticker.last_trade_time)).toLocaleString()}</p>
                 <p id='dividend'>Dividend: {ticker.dividend}</p>
                 <p id='yield'>Yield: {ticker.yield}</p>
@@ -72,16 +75,22 @@ function App(props) {
                 <div>
                     <button id='btnClose' onClick={formClose}></button>
                 </div>
+                <div className="form__group field">
+                    <input type="number" min="500" max="10000" step='100' className="form__field" placeholder="Name" name="name" id='name' autoComplete='off' ref={inputEl} />
+                    <label className="form__label">Time in milliseconds (500 - 10000)</label>
+                </div>
+                <div>
+                    <button id='btnSetTimeServer' onClick={setTimeServer}>set Time</button>
+                </div>
             </div>
         );
     }
 
     return (
         <div className="stock-ticker">
-            <h1>Stock Blotter 2</h1>
             <div className='conteinerForm'>
                 {ticker.ticker !== undefined ? <Form /> : null}
-                {time ? <BlockTime /> : null}
+                {vivbleForm ? <BlockTime /> : null}
             </div>
         </div>
     );

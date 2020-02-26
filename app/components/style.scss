@@ -5,6 +5,13 @@ body {
   color: white;
 }
 
+$blue: rgb(0, 162, 255);
+$orange: rgb(196, 105, 1);
+$red: rgb(255, 0, 0);
+$yellow: rgb(255, 251, 0);
+$fonButton: rgb(221, 255, 247);
+$green: rgb(128, 255, 0);
+
 .conteinerForm {
   position: relative;
   width: 300px;
@@ -12,16 +19,16 @@ body {
   margin: 10px;
 
   .form {
-    background: rgb(196, 105, 1);
+    background: $orange;
     width: 300px;
     padding: 5px;
     display: inline-block;
 
-    #price1{
-        color: chartreuse;
+    #price1 {
+      color: $green;
     }
-    #price2{
-        color: crimson;
+    #price2 {
+      color: $red;
     }
 
     button {
@@ -29,60 +36,141 @@ body {
       right: 0;
       outline: none;
 
-      background-color: rgb(221, 255, 247);
-      border: 4px solid rgb(0, 162, 255);
+      background-color: $fonButton;
+      border: 4px solid $blue;
       border-radius: 50%;
       height: 35px;
       width: 35px;
     }
     button:after {
       content: "☰";
-      color: rgb(0, 162, 255);
+      color: $blue;
       font-size: 15px;
     }
 
     button:hover {
-      border: 2px solid rgb(0, 162, 255);
+      border: 2px solid $blue;
+      cursor: pointer;
     }
     button:hover:after {
-    //   color: rgb(0, 162, 255);
       font-size: 18px;
     }
   }
   .blockTime {
     position: absolute;
-    background: rgb(0, 162, 255);
+    background: $blue;
     width: 300px;
     padding: 5px;
     left: 0;
     top: 0;
     bottom: 0;
 
-    button {
+    #btnClose {
       position: absolute;
       right: 0;
       outline: none;
 
       right: 10px;
 
-      background-color: rgb(221, 255, 247);
-      border: 4px solid rgb(196, 105, 1);
+      background-color: $fonButton;
+      border: 4px solid $orange;
       border-radius: 50%;
       height: 35px;
       width: 35px;
     }
-    button:after {
+    #btnClose:after {
       content: "✖";
-      color: rgb(255, 251, 0);
+      color: $yellow;
       font-size: 15px;
     }
 
-    button:hover {
-      border: 2px solid rgb(196, 105, 1);
+    #btnClose:hover {
+      border: 2px solid $orange;
+      cursor: pointer;
     }
-    button:hover:after {
-      color: rgb(255, 0, 0);
+    #btnClose:hover:after {
+      color: $red;
       font-size: 18px;
+    }
+
+    #btnSetTimeServer {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 15px;
+
+      background-color: $green;
+      outline: none;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    $primary: #11998e;
+    $secondary: #38ef7d;
+    $white: #fff;
+    $gray: #9b9b9b;
+
+    .form__group {
+      position: relative;
+      padding-top: 15px;
+      margin-top: 35px;
+      width: 100%;
+    }
+
+    .form__field {
+      font-family: inherit;
+      width: 100%;
+      border: 0;
+      border-bottom: 2px solid black;
+      outline: 0;
+      font-size: 1.3rem;
+      color: $white;
+      padding: 7px 0;
+      background: transparent;
+      transition: border-color 0.2s;
+
+      &::placeholder {
+        color: transparent;
+      }
+
+      &:placeholder-shown ~ .form__label {
+        font-size: 1.2rem;
+        cursor: text;
+        top: 20px;
+      }
+    }
+
+    .form__label {
+      position: absolute;
+      top: 0;
+      display: block;
+      transition: 0.2s;
+      font-size: 1rem;
+      color: black;
+    }
+
+    .form__field:focus {
+      ~ .form__label {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: $red;
+        font-weight: 600;
+      }
+      font-weight: 600;
+    }
+    .form__field {
+      &:required,
+      &:invalid {
+        box-shadow: none;
+      }
     }
   }
 }

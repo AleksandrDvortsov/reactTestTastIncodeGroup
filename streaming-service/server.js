@@ -77,6 +77,9 @@ io.sockets.on('connection', function(socket) {
   socket.on('ticker', function(ticker) {
     trackTicker(socket, ticker);
   });
+  socket.on('setTime', function(time) {
+    FETCH_INTERVAL = time;
+  });
 });
 
 server.listen(process.env.PORT || 4000);
