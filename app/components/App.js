@@ -1,20 +1,41 @@
 import '../styles/application.scss';
-import {connect} from '../services';
-import React, {PureComponent} from 'react';
+import { connectService } from '../services';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 
 // The below line is here as an example of getting prices
-connect('AAPL');
+// connect('AAPL');
 
-class App extends PureComponent {
-    render() {
-        return (
-            <div className="stock-ticker">
-                <h1>Stock Blotter</h1>
+function App(props) {
+    const {
+        setTicker,
+    } = props;
+    console.log(props);
+
+    useEffect(()=>{
+        connectService('AAPL', setTicker);
+    }, [])
 
 
-            </div>
-        );
-    }
+    return (
+        <div className="stock-ticker">
+            <h1>Stock Blotter 2</h1>
+
+        </div>
+    );
 }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setTicker: (par) => {
+            dispatch({ type: 'SET_TICKER', par });
+        }
+    };
+};
 
-export default App;
+const mapStateToProps = state => {
+    return {
+        ticker: state.ticker,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
